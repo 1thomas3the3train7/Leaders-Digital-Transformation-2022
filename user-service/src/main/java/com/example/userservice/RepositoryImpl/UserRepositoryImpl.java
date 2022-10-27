@@ -42,4 +42,18 @@ public class UserRepositoryImpl implements UserRepository {
             return null;
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserShort getUserAndIdeaShortByEmail(String email) {
+        try {
+            final UserShort userShort = em.createQuery("SELECT u FROM UserShort u JOIN FETCH u.ideas " +
+                            "WHERE u.email = ?1", UserShort.class)
+                    .setParameter(1,email)
+                    .getSingleResult();
+            return userShort;
+        } catch (NoResultException e){
+            return null;
+        }
+    }
 }

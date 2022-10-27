@@ -1,5 +1,6 @@
 package com.example.userservice.Model.User;
 
+import com.example.userservice.Model.Idea.IdeaShort;
 import com.example.userservice.Model.Role.RoleShort;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,8 @@ public class UserShort extends UserBase {
     @JoinTable(name = "user_and_role",joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleShort> roles;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_and_idea",joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "idea_id"))
+    private Set<IdeaShort> ideas;
 }

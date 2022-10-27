@@ -9,4 +9,5 @@ public interface UserRepository {
     void save(UserBase userBase);
     void delete(UserBase userBase);
     UserShort getUserAndRoleShortByEmail(String email);
+    UserShort getUserAndIdeaShortByEmail(String email);
 }
