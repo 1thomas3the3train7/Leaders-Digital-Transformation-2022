@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @MappedSuperclass
 @Getter
@@ -17,4 +18,15 @@ public class IdeaBase {
     private Long id;
     private String title;
     private String description;
+    private int likeCount;
+    private String tokenIdea;
+    @PrePersist
+    private void prePersist(){
+        this.tokenIdea = UUID.randomUUID().toString();
+    }
+
+    public IdeaBase(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }

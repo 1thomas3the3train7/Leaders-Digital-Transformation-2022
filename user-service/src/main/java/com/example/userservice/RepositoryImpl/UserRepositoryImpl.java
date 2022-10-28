@@ -2,6 +2,7 @@ package com.example.userservice.RepositoryImpl;
 
 import com.example.userservice.Exception.UserNotFoundException;
 import com.example.userservice.Model.User.UserBase;
+import com.example.userservice.Model.User.UserDetailed;
 import com.example.userservice.Model.User.UserShort;
 import com.example.userservice.Repository.UserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -53,6 +54,22 @@ public class UserRepositoryImpl implements UserRepository {
                     .getSingleResult();
             return userShort;
         } catch (NoResultException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetailed getFullUserDetailedByEmail(String email) {
+        try {
+            final UserDetailed user = em.createQuery("SELECT u FROM UserDetailed u " +
+                            "JOIN FETCH u.roles WHERE u.email = ?1", UserDetailed.class)
+                    .setParameter(1,email)
+                    .getSingleResult();
+            return user;
+        } catch (NoResultException e){
+            System.out.println(e.getMessage());
             return null;
         }
     }

@@ -25,6 +25,10 @@ public class UserDTO {
         this.roles = roles;
     }
 
+    public UserDTO(String email) {
+        this.email = email;
+    }
+
     public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;

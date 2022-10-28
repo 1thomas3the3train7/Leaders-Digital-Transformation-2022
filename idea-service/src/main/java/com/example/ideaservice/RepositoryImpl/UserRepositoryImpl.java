@@ -47,4 +47,13 @@ public class UserRepositoryImpl implements UserRepository {
                 .getSingleResult();
         return userDetailed;
     }
+
+    @Override
+    @Transactional
+    public void appendProjectAndUser(Long project_id, Long user_id) {
+        em.createNativeQuery("INSERT INTO user_and_project (project_id,user_id) VALUES (?1,?2)")
+                .setParameter(1,project_id)
+                .setParameter(2,user_id)
+                .executeUpdate();
+    }
 }

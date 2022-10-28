@@ -17,4 +17,9 @@ public class UserBase {
     private Long id;
     private String email;
     private String name;
+
+    public UserBase(String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
 }

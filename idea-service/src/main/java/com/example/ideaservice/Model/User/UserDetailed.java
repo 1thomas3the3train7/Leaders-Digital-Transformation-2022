@@ -1,5 +1,6 @@
 package com.example.ideaservice.Model.User;
 
+import com.example.ideaservice.Model.Idea.IdeaDetailed;
 import com.example.ideaservice.Model.Project.ProjectDetailed;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,16 @@ public class UserDetailed extends UserBase {
     private LocalDateTime dateCreate;
     @UpdateTimestamp
     private LocalDateTime dateUpdate;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_and_idea",joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "idea_id"))
+    private Set<IdeaDetailed> ideas;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_and_project",joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<ProjectDetailed> projects;
+
+    public UserDetailed(String email, String name) {
+        super(email, name);
+    }
 }

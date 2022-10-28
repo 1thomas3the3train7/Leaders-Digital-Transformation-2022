@@ -9,9 +9,7 @@ message UserGetResponse{
   int32 status = 2;
 }
 message UserSaveRequest{
-  string email = 1;
-  string password = 2;
-  string name = 3;
+  string request = 1;
 }
 message UserSaveResponse{
   string response = 1;

@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_package = "Grpc";
+
+message IdeaSaveRequest{
+  string request = 1;
+}
+
+message IdeaSaveResponse{
+  string response = 1;
+  int32 status = 2;
+}
+
+service IdeaService{
+  rpc saveIdea(IdeaSaveRequest) returns(IdeaSaveResponse);
+}

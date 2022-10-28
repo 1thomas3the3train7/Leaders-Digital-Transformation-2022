@@ -35,13 +35,11 @@ public class UserGrpcClient {
         }
     }
 
-    public String userSave(final UserDTO userDTO){
+    public String userSave(final String request){
         try {
             final ListenableFuture<User.UserSaveResponse> response = futureStub.saveUser(
                     User.UserSaveRequest.newBuilder()
-                            .setEmail(userDTO.getEmail())
-                            .setPassword(userDTO.getPassword())
-                            .setName(userDTO.getFirstName())
+                            .setRequest(request)
                             .build());
             return response.get().getResponse();
         } catch (ExecutionException e) {

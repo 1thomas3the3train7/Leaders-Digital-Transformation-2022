@@ -3,6 +3,7 @@ package com.example.userservice.Service;
 import com.example.userservice.DTO.UserDTO;
 import com.example.userservice.Exception.NotValidRequestException;
 import com.example.userservice.Exception.UserAlreadyExistException;
+import com.example.userservice.Exception.UserNotFoundException;
 import com.example.userservice.Model.User.UserDetailed;
 import com.example.userservice.Model.User.UserShort;
 import com.example.userservice.Repository.UserRepository;
@@ -57,4 +58,13 @@ public class UserService {
         userRepository.save(userDetailed);
         return "User save";
     }
+    public String getUserByEmail(final String email){
+        final UserDetailed userDetailed = userRepository.getFullUserDetailedByEmail(email);
+        if(userDetailed == null){
+            throw new UserNotFoundException("User not found");
+        }
+        final UserDTO userDTO = dtoUtils.UserDetailedToUserDTO(userDetailed);
+        return gson.toJson(userDTO);
+    }
+
 }

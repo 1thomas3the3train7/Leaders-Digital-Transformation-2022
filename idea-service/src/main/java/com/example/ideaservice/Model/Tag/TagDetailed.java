@@ -1,14 +1,15 @@
 package com.example.ideaservice.Model.Tag;
 
+import com.example.ideaservice.Model.Project.ProjectDetailed;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,4 +21,8 @@ public class TagDetailed extends TagBase {
     private LocalDateTime dateCreate;
     @UpdateTimestamp
     private LocalDateTime dateUpdate;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "project_and_tag",joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private Set<ProjectDetailed> projects;
 }

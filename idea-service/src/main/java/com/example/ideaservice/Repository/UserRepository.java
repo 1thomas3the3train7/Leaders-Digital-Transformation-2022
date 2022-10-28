@@ -9,4 +9,5 @@ public interface UserRepository {
     void delete(UserBase userBase);
     UserShort getUserShortByEmail(String email);
     UserDetailed getUserDetailedByEmail(String email);
+    void appendProjectAndUser(Long project_id,Long user_id);
 }

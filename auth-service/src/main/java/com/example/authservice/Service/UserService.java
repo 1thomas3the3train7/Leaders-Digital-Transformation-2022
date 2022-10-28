@@ -95,7 +95,7 @@ public class UserService {
     }
     private String registerUser(final UserDTO userDTO){
         userDTO.setPassword(encoder.encode(userDTO.getPassword()));
-        return grpcClient.userSave(userDTO);
+        return grpcClient.userSave(gson.toJson(userDTO));
     }
 
 }
