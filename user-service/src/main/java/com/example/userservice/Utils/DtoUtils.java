@@ -1,7 +1,9 @@
 package com.example.userservice.Utils;
 
+import com.example.userservice.DTO.IdeaDTO;
 import com.example.userservice.DTO.RoleDTO;
 import com.example.userservice.DTO.UserDTO;
+import com.example.userservice.Model.Idea.IdeaDetailed;
 import com.example.userservice.Model.Role.RoleDetailed;
 import com.example.userservice.Model.Role.RoleShort;
 import com.example.userservice.Model.User.UserDetailed;
@@ -33,5 +35,10 @@ public class DtoUtils {
         }
         userDTO.setRoles(roleDTOS);
         return userDTO;
+    }
+    public IdeaDetailed IdeaDTOToIdeaDetailed(final IdeaDTO idea){
+        final IdeaDetailed ideaDetailed = new IdeaDetailed(
+                Long.parseLong(idea.getId()), idea.getTitle(), idea.getDesc());
+        return ideaDetailed;
     }
 }

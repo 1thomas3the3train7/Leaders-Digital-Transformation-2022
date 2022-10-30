@@ -20,10 +20,11 @@ public class IdeaBase {
     private String description;
     private int likeCount;
     private String tokenIdea;
-    @PrePersist
+    //TODO on in prod
+    /*@PrePersist
     private void prePersist(){
         this.tokenIdea = UUID.randomUUID().toString();
-    }
+    }*/
 
     public IdeaBase(String title, String description) {
         this.title = title;

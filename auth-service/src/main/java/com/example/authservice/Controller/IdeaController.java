@@ -21,6 +21,6 @@ public class IdeaController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<String> saveIdea(@RequestBody String request, Principal principal){
-        return new ResponseEntity<>(ideaService.createIdeaAndValid(request,principal), HttpStatus.OK);
+        return new ResponseEntity<>(ideaService.createIdeaAndValid(request,principal.getName()), HttpStatus.OK);
     }
 }

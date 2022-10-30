@@ -18,7 +18,7 @@ public class ProjectService {
         this.projectGrpcClient = projectGrpcClient;
     }
 
-    public String createProjectAndValid(final String request, final Principal principal){
+    public String createProjectAndValid(final String request, final String email){
         if(request == null){
             throw new NotValidRequestException("Not valid request (null)");
         }
@@ -27,7 +27,7 @@ public class ProjectService {
         || projectDTO.getName() == null){
             throw new NotValidRequestException("Not valid request (null)");
         }
-        projectDTO.setMainUser(new UserDTO(principal.getName()));
+        projectDTO.setMainUser(new UserDTO(email));
         return createProject(projectDTO);
     }
     private String createProject(final ProjectDTO projectDTO){

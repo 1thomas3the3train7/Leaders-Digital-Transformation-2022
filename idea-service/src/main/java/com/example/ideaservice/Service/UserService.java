@@ -3,8 +3,10 @@ package com.example.ideaservice.Service;
 import com.example.ideaservice.DTO.UserDTO;
 import com.example.ideaservice.GrpcClient.UserGrpcClient;
 import com.example.ideaservice.Model.User.UserDetailed;
+import com.example.ideaservice.Model.User.UserShort;
 import com.example.ideaservice.Repository.UserRepository;
 import com.google.gson.Gson;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service

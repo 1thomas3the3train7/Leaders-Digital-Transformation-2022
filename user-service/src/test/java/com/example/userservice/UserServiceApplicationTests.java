@@ -25,7 +25,7 @@ class UserServiceApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-	@Test
+	/*@Test
 	void forLoginAndRegisterUser(){
 		UserDetailed userDetailed = new UserDetailed("email","password","name");
 		RoleDetailed roleDetailed = new RoleDetailed();
@@ -42,6 +42,6 @@ class UserServiceApplicationTests {
 		userDTO1.setFirstName("name");
 		System.out.println(userService.loginAndValidateUser(gson.toJson(userDTO)));
 		System.out.println(userService.registerAndValidUser(gson.toJson(userDTO1)));
-	}
+	}*/
 
 }

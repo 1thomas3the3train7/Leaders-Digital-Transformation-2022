@@ -10,10 +10,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "table")
+@Table(name = "team")
 public class TeamBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
 
+    public TeamBase(String name) {
+        this.name = name;
+    }
 }

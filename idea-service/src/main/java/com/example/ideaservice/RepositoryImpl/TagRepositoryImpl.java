@@ -29,8 +29,8 @@ public class TagRepositoryImpl implements TagRepository {
     @Override
     @Transactional(readOnly = true)
     public TagShort getTagByTagName(String tagnName) {
-        final TagShort tag = em.createQuery("SELECT t FROM TagShort t WHERE t.tagName = ?1", TagShort.class)
-                .setParameter(1,tagnName)
+        final TagShort tag = em.createQuery("SELECT t FROM TagShort t WHERE LOWER(t.tagName) = ?1", TagShort.class)
+                .setParameter(1,tagnName.toLowerCase())
                 .getSingleResult();
         return tag;
     }

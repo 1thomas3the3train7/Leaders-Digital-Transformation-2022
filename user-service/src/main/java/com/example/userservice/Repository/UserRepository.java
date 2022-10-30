@@ -11,5 +11,6 @@ public interface UserRepository {
     void delete(UserBase userBase);
     UserShort getUserAndRoleShortByEmail(String email);
     UserShort getUserAndIdeaShortByEmail(String email);
+    UserShort getUserShortByEmail(String email);
     UserDetailed getFullUserDetailedByEmail(String email);
 }

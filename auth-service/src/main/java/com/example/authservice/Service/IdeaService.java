@@ -18,12 +18,13 @@ public class IdeaService {
         this.ideaGrpcClient = ideaGrpcClient;
     }
 
-    public String createIdeaAndValid(final String idea, Principal principal){
+    public String createIdeaAndValid(final String idea, String email){
+
         if(idea == null){
             throw new NotValidRequestException("No valid request (null)");
         }
         final IdeaDTO ideaDTO = gson.fromJson(idea, IdeaDTO.class);
-        ideaDTO.setUser(new UserDTO(principal.getName()));
+        ideaDTO.setUser(new UserDTO(email));
         if(ideaDTO.getDesc() == null){
             throw new NotValidRequestException("No valid request (null)");
         }

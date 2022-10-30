@@ -2,11 +2,12 @@ package com.example.authservice.Exception;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {
-        super();
+        super("User not found");
     }
 
     public UserNotFoundException(String message) {
         super(message);
+        System.out.println(message);
     }
 
     public UserNotFoundException(String message, Throwable cause) {

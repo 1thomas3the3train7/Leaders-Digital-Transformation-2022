@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository
@@ -30,12 +31,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     @Transactional(readOnly = true)
     public UserShort getUserShortByEmail(String email) {
-        //TODO catch exc
-        final UserShort userShort = em.createQuery("SELECT u FROM UserShort u " +
-                        "WHERE u.email = ?1", UserShort.class)
-                .setParameter(1,email)
-                .getSingleResult();
-        return userShort;
+        try {
+            final UserShort userShort = em.createQuery("SELECT u FROM UserShort u " +
+                            "WHERE u.email = ?1", UserShort.class)
+                    .setParameter(1,email)
+                    .getSingleResult();
+            return userShort;
+        } catch (NoResultException n){
+            return null;
+        }
     }
 
     @Override

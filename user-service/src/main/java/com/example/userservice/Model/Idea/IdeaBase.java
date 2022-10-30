@@ -16,4 +16,12 @@ public class IdeaBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idea_id;
+    private String title;
+    private String desc;
+
+    public IdeaBase(Long idea_id, String title, String desc) {
+        this.idea_id = idea_id;
+        this.title = title;
+        this.desc = desc;
+    }
 }

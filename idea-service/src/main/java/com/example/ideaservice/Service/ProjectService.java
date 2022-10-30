@@ -6,14 +6,13 @@ import com.example.ideaservice.DTO.TagDTO;
 import com.example.ideaservice.Exception.IdeaNotFoundException;
 import com.example.ideaservice.Exception.NotValidRequestException;
 import com.example.ideaservice.Exception.TagNotFoundException;
+import com.example.ideaservice.Exception.UserNotFoundException;
 import com.example.ideaservice.Model.Idea.IdeaShort;
 import com.example.ideaservice.Model.Project.ProjectDetailed;
 import com.example.ideaservice.Model.Tag.TagShort;
+import com.example.ideaservice.Model.User.UserDetailed;
 import com.example.ideaservice.Model.User.UserShort;
-import com.example.ideaservice.Repository.IdeaRepository;
-import com.example.ideaservice.Repository.ProjectRepository;
-import com.example.ideaservice.Repository.TagRepository;
-import com.example.ideaservice.Repository.UserRepository;
+import com.example.ideaservice.Repository.*;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +27,19 @@ public class ProjectService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     private final IdeaRepository ideaRepository;
+    private final TeamRepository teamRepository;
+    private final UserService userService;
 
     public ProjectService(ProjectRepository projectRepository, DtoUtils dtoUtils, UserRepository userRepository,
-                          TagRepository tagRepository, IdeaRepository ideaRepository) {
+                          TagRepository tagRepository, IdeaRepository ideaRepository, TeamRepository teamRepository,
+                          UserService userService) {
         this.projectRepository = projectRepository;
         this.dtoUtils = dtoUtils;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.ideaRepository = ideaRepository;
+        this.teamRepository = teamRepository;
+        this.userService = userService;
     }
 
     public String createProjectAndValid(final String projectJSON){
@@ -73,9 +77,15 @@ public class ProjectService {
         final ProjectDetailed projectDetailed = dtoUtils.ProjectDTOToProjectDetailed(projectDTO);
         final String email = projectDTO.getMainUser().getEmail();
         final UserShort user = userRepository.getUserShortByEmail(email);
-        //TODO check user
+        final Long userId;
+        if(user == null){
+            final UserDetailed user1 = userService.updateUserFromUserService(email);
+            userId = user1.getId();
+        } else {
+            userId = user.getId();
+        }
         projectRepository.save(projectDetailed);
-        userRepository.appendProjectAndUser(projectDetailed.getId(), user.getId());
+        userRepository.appendProjectAndUser(projectDetailed.getId(), userId);
         idTag.forEach(i -> {
             tagRepository.appendProjectAndTag(projectDetailed.getId(), i);
         });

@@ -2,6 +2,7 @@ package com.example.ideaservice.Model.Project;
 
 import com.example.ideaservice.Model.Idea.IdeaDetailed;
 import com.example.ideaservice.Model.Tag.TagDetailed;
+import com.example.ideaservice.Model.Team.TeamDetailed;
 import com.example.ideaservice.Model.User.UserDetailed;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,9 @@ public class ProjectDetailed extends ProjectBase {
     private LocalDateTime dateCreate;
     @UpdateTimestamp
     private LocalDateTime dateUpdate;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id",referencedColumnName = "id")
+    private TeamDetailed team;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_and_project",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

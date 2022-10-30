@@ -2,7 +2,7 @@ package com.example.ideaservice.Exception;
 
 public class NotValidRequestException extends RuntimeException{
     public NotValidRequestException() {
-        super();
+        super("Not valid request (null)");
     }
 
     public NotValidRequestException(String message) {

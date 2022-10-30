@@ -1,12 +1,12 @@
 package com.example.ideaservice.Service;
 
 import com.example.ideaservice.DTO.IdeaDTO;
-import com.example.ideaservice.DTO.UserDTO;
 import com.example.ideaservice.Exception.NotValidRequestException;
 import com.example.ideaservice.Model.Idea.IdeaDetailed;
 import com.example.ideaservice.Model.User.UserDetailed;
 import com.example.ideaservice.Model.User.UserShort;
 import com.example.ideaservice.Repository.IdeaRepository;
+import com.example.ideaservice.Repository.TagRepository;
 import com.example.ideaservice.Repository.UserRepository;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,17 @@ public class IdeaService {
     private final IdeaRepository ideaRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final TagRepository tagRepository;
+    private final IdeaAsyncService ideaAsyncService;
     private final Gson gson = new Gson();
 
-    public IdeaService(IdeaRepository ideaRepository, UserRepository userRepository, UserService userService) {
+    public IdeaService(IdeaRepository ideaRepository, UserRepository userRepository,
+                       UserService userService, TagRepository tagRepository, IdeaAsyncService ideaAsyncService) {
         this.ideaRepository = ideaRepository;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.tagRepository = tagRepository;
+        this.ideaAsyncService = ideaAsyncService;
     }
 
     public String saveIdeaAndValid(final String request){
@@ -46,6 +51,8 @@ public class IdeaService {
         }
         ideaRepository.save(ideaDetailed);
         ideaRepository.appendUserAndIdea(user.getId(), ideaDetailed.getId());
+        ideaDTO.setId(String.valueOf(ideaDetailed.getId()));
+        ideaAsyncService.updateIdeaToUserService(gson.toJson(ideaDTO));
         return "Save Idea";
     }
 }

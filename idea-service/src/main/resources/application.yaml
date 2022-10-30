@@ -22,9 +22,10 @@ spring:
     driver-class-name: org.postgresql.Driver
 grpc:
   client:
-    address: "discovery:///userservice"
-    enable-keep-alive: true
-    keep-alive-without-calls: true
-    negotiation-type: plaintext
+    user-service:
+      address: "discovery:///userservice"
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
   server:
     port: 0

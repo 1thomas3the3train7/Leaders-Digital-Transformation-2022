@@ -10,6 +10,16 @@ message IdeaSaveResponse{
   int32 status = 2;
 }
 
+message IdeaUpdateRequest{
+  string request = 1;
+}
+
+message IdeaUpdateResponse{
+  string response = 1;
+  int32 status = 2;
+}
+
 service IdeaService{
   rpc saveIdea(IdeaSaveRequest) returns(IdeaSaveResponse);
+  rpc ideaUpdate(IdeaUpdateRequest) returns(IdeaUpdateResponse);
 }

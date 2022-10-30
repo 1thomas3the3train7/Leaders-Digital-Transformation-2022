@@ -1,4 +1,4 @@
-package com.example.ideaservice.DTO;
+package com.example.userservice.DTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

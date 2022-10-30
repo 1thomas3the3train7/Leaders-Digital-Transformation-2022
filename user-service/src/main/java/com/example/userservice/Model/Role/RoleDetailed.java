@@ -25,4 +25,8 @@ public class RoleDetailed extends RoleBase {
     @JoinTable(name = "user_and_role",joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserDetailed> users;
+
+    public RoleDetailed(String name) {
+        super(name);
+    }
 }
