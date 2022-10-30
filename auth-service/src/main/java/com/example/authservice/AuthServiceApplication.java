@@ -18,6 +18,6 @@ public class AuthServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 	}
 }
